@@ -20,14 +20,30 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="navbar">
+    <nav className="navbar" style={{ position: 'relative' }}>
+      
+      {/* LEFT SIDE (UNCHANGED) */}
       <div className="navbar-brand">
         <Link to="/">
           <FaCapsules className="brand-icon" />
-          <span className="brand-text"> MedStore Pro</span>
+          <span className="brand-text">MedStore Pro</span>
         </Link>
       </div>
 
+      {/* CENTER TITLE (NEW) */}
+      <div
+        style={{
+          position: 'absolute',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          fontWeight: 'bold',
+          fontSize: '18px',
+          pointerEvents: 'none' // prevents blocking clicks
+        }}
+      >
+      </div>
+
+      {/* SEARCH (UNCHANGED) */}
       <div className="navbar-search">
         <Link to="/search" className="search-link">
           <FaSearch />
@@ -35,6 +51,7 @@ const Navbar = () => {
         </Link>
       </div>
 
+      {/* RIGHT SIDE (UNCHANGED) */}
       <div className="navbar-actions">
         <div className="notification-wrapper">
           <button
@@ -54,7 +71,7 @@ const Navbar = () => {
                 <p className="no-notifications">No notifications</p>
               ) : (
                 <div className="notification-list">
-                  {notifications.map((notif, index) => (
+                  {notifications.map((notif) => (
                     <div key={notif.id} className={`notification-item ${notif.type}`}>
                       {getNotificationIcon(notif.type)}
                       <span>{notif.message}</span>
