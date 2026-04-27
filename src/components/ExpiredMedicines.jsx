@@ -15,7 +15,7 @@ const ExpiredMedicines = () => {
   )
 
   const handleRemove = (id, name) => {
-    if (window.confirm(`Remove expired medicine "${name}"?`)) {
+    if (globalThis.confirm(`Remove expired medicine "${name}"?`)) {
       deleteMedicine(id)
       toast.success(`${name} removed!`)
     }

@@ -4,7 +4,7 @@ export const sampleMedicines = [
     name: "Paracetamol 500mg",
     brand: "Crocin",
     category: "Tablet",
-    price: 25.00,
+    price: 25,
     quantity: 150,
     batchNo: "BT2024001",
     mfgDate: "2024-01-15",
@@ -17,7 +17,7 @@ export const sampleMedicines = [
     name: "Amoxicillin 250mg",
     brand: "Mox",
     category: "Capsule",
-    price: 85.00,
+    price: 85,
     quantity: 80,
     batchNo: "BT2024002",
     mfgDate: "2024-02-10",
@@ -30,7 +30,7 @@ export const sampleMedicines = [
     name: "Cetirizine 10mg",
     brand: "Zyrtec",
     category: "Tablet",
-    price: 35.00,
+    price: 35,
     quantity: 200,
     batchNo: "BT2024003",
     mfgDate: "2024-03-05",
@@ -43,7 +43,7 @@ export const sampleMedicines = [
     name: "Omeprazole 20mg",
     brand: "Omez",
     category: "Capsule",
-    price: 60.00,
+    price: 60,
     quantity: 5,
     batchNo: "BT2024004",
     mfgDate: "2023-11-20",
@@ -56,7 +56,7 @@ export const sampleMedicines = [
     name: "Ibuprofen 400mg",
     brand: "Brufen",
     category: "Tablet",
-    price: 30.00,
+    price: 30,
     quantity: 120,
     batchNo: "BT2024005",
     mfgDate: "2024-01-25",
@@ -69,7 +69,7 @@ export const sampleMedicines = [
     name: "Azithromycin 500mg",
     brand: "Azithral",
     category: "Tablet",
-    price: 95.00,
+    price: 95,
     quantity: 45,
     batchNo: "BT2024006",
     mfgDate: "2024-04-01",
@@ -82,7 +82,7 @@ export const sampleMedicines = [
     name: "Vitamin D3 60000IU",
     brand: "D-Rise",
     category: "Capsule",
-    price: 120.00,
+    price: 120,
     quantity: 3,
     batchNo: "BT2024007",
     mfgDate: "2024-02-15",
@@ -95,7 +95,7 @@ export const sampleMedicines = [
     name: "Cough Syrup",
     brand: "Benadryl",
     category: "Syrup",
-    price: 110.00,
+    price: 110,
     quantity: 60,
     batchNo: "BT2024008",
     mfgDate: "2023-06-10",
@@ -108,7 +108,7 @@ export const sampleMedicines = [
     name: "Metformin 500mg",
     brand: "Glycomet",
     category: "Tablet",
-    price: 45.00,
+    price: 45,
     quantity: 300,
     batchNo: "BT2024009",
     mfgDate: "2024-03-20",
@@ -121,7 +121,7 @@ export const sampleMedicines = [
     name: "Betadine Ointment",
     brand: "Betadine",
     category: "Ointment",
-    price: 75.00,
+    price: 75,
     quantity: 40,
     batchNo: "BT2024010",
     mfgDate: "2024-01-01",
@@ -138,7 +138,7 @@ export const sampleCustomers = [
     phone: "9876543210",
     email: "rajesh@email.com",
     address: "123 MG Road, Delhi",
-    totalPurchases: 2450.00
+    totalPurchases: 2450
   },
   {
     id: 2,
@@ -146,7 +146,7 @@ export const sampleCustomers = [
     phone: "9876543211",
     email: "priya@email.com",
     address: "456 Park Street, Mumbai",
-    totalPurchases: 1800.00
+    totalPurchases: 1800
   },
   {
     id: 3,
@@ -154,7 +154,7 @@ export const sampleCustomers = [
     phone: "9876543212",
     email: "amit@email.com",
     address: "789 Lake Road, Ahmedabad",
-    totalPurchases: 3200.00
+    totalPurchases: 3200
   }
 ]
 
@@ -165,10 +165,10 @@ export const sampleBills = [
     customerName: "Rajesh Kumar",
     customerPhone: "9876543210",
     items: [
-      { medicineId: 1, name: "Paracetamol 500mg", quantity: 2, price: 25.00, total: 50.00 },
-      { medicineId: 3, name: "Cetirizine 10mg", quantity: 1, price: 35.00, total: 35.00 }
+      { medicineId: 1, name: "Paracetamol 500mg", quantity: 2, price: 25, total: 50 },
+      { medicineId: 3, name: "Cetirizine 10mg", quantity: 1, price: 35, total: 35 }
     ],
-    subtotal: 85.00,
+    subtotal: 85,
     discount: 5,
     discountAmount: 4.25,
     tax: 4.04,

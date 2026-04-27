@@ -47,12 +47,14 @@ const SearchMedicine = () => {
           <div className="search-results">
             {results.map(med => {
               const isExpired = new Date(med.expDate) <= new Date()
+              const badgeClass = isExpired ? 'badge-danger' : med.quantity <= 10 ? 'badge-warning' : 'badge-success'
+              const badgeText = isExpired ? 'Expired' : med.quantity <= 10 ? 'Low Stock' : 'Available'
               return (
                 <div key={med.id} className={`search-result-card ${isExpired ? 'expired' : ''}`}>
                   <div className="result-header">
                     <h3>{med.name}</h3>
-                    <span className={`badge ${isExpired ? 'badge-danger' : med.quantity <= 10 ? 'badge-warning' : 'badge-success'}`}>
-                      {isExpired ? 'Expired' : med.quantity <= 10 ? 'Low Stock' : 'Available'}
+                    <span className={`badge ${badgeClass}`}>
+                      {badgeText}
                     </span>
                   </div>
                   <div className="result-details">
