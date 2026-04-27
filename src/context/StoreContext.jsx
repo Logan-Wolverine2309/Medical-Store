@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useMemo } from 'react'
+import PropTypes from 'prop-types'
 import { sampleMedicines, sampleCustomers, sampleBills } from '../data/sampleData'
 
 const StoreContext = createContext()
@@ -101,6 +102,26 @@ export const StoreProvider = ({ children }) => {
     setCustomers(prev => prev.filter(cust => cust.id !== id))
   }
 
+  const updateMedicineQuantity = (item) => {
+    setMedicines(prev =>
+      prev.map(med =>
+        med.id === item.medicineId
+          ? { ...med, quantity: med.quantity - item.quantity }
+          : med
+      )
+    )
+  }
+
+  const updateCustomerPurchases = (customerPhone, amount) => {
+    setCustomers(prev =>
+      prev.map(cust =>
+        cust.phone === customerPhone
+          ? { ...cust, totalPurchases: cust.totalPurchases + amount }
+          : cust
+      )
+    )
+  }
+
   const createBill = (bill) => {
     const newBill = {
       ...bill,
@@ -109,24 +130,10 @@ export const StoreProvider = ({ children }) => {
       date: new Date().toISOString().split('T')[0]
     }
 
-    bill.items.forEach(item => {
-      setMedicines(prev =>
-        prev.map(med =>
-          med.id === item.medicineId
-            ? { ...med, quantity: med.quantity - item.quantity }
-            : med
-        )
-      )
-    })
+    bill.items.forEach(updateMedicineQuantity)
 
     if (bill.customerPhone) {
-      setCustomers(prev =>
-        prev.map(cust =>
-          cust.phone === bill.customerPhone
-            ? { ...cust, totalPurchases: cust.totalPurchases + bill.grandTotal }
-            : cust
-        )
-      )
+      updateCustomerPurchases(bill.customerPhone, bill.grandTotal)
     }
 
     setBills(prev => [...prev, newBill])
@@ -164,4 +171,8 @@ export const StoreProvider = ({ children }) => {
       {children}
     </StoreContext.Provider>
   )
+}
+
+StoreProvider.propTypes = {
+  children: PropTypes.node.isRequired
 }

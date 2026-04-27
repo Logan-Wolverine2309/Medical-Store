@@ -144,21 +144,37 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {topMedicines.map(med => (
-                <tr key={med.id}>
-                  <td>{med.name}</td>
-                  <td>{med.quantity}</td>
-                  <td>
-                    <span className={`badge ${
-                      med.quantity <= 5 ? 'badge-danger' :
-                      med.quantity <= 10 ? 'badge-warning' : 'badge-success'
-                    }`}>
-                      {med.quantity <= 5 ? 'Critical' :
-                       med.quantity <= 10 ? 'Low' : 'OK'}
-                    </span>
-                  </td>
-                </tr>
-              ))}
+              {topMedicines.map(med => {
+                let stockStatus
+                if (med.quantity <= 5) {
+                  stockStatus = 'Critical'
+                } else if (med.quantity <= 10) {
+                  stockStatus = 'Low'
+                } else {
+                  stockStatus = 'OK'
+                }
+                
+                let badgeClass
+                if (med.quantity <= 5) {
+                  badgeClass = 'badge-danger'
+                } else if (med.quantity <= 10) {
+                  badgeClass = 'badge-warning'
+                } else {
+                  badgeClass = 'badge-success'
+                }
+                
+                return (
+                  <tr key={med.id}>
+                    <td>{med.name}</td>
+                    <td>{med.quantity}</td>
+                    <td>
+                      <span className={`badge ${badgeClass}`}>
+                        {stockStatus}
+                      </span>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>
@@ -167,10 +183,10 @@ const Dashboard = () => {
       <div className="dashboard-card categories-overview">
         <h2>📂 Categories</h2>
         <div className="categories-grid">
-          {stats.categories.map((cat, index) => {
+          {stats.categories.map((cat) => {
             const count = medicines.filter(m => m.category === cat).length
             return (
-              <div key={index} className="category-card">
+              <div key={cat} className="category-card">
                 <h4>{cat}</h4>
                 <p>{count} items</p>
               </div>

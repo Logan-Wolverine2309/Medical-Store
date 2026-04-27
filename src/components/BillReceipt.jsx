@@ -8,7 +8,7 @@ const BillReceipt = () => {
   const { bills } = useStore()
   const receiptRef = useRef()
 
-  const bill = bills.find(b => b.id === parseInt(id))
+  const bill = bills.find(b => b.id === Number.parseInt(id))
 
   if (!bill) {
     return (
@@ -22,7 +22,7 @@ const BillReceipt = () => {
   const handlePrint = () => {
     const printContent = receiptRef.current.innerHTML
     const newWindow = window.open('', '_blank')
-    newWindow.document.write(`
+    const htmlContent = `
       <html>
         <head>
           <title>Bill Receipt - ${bill.billNo}</title>
@@ -44,7 +44,9 @@ const BillReceipt = () => {
         </head>
         <body>${printContent}</body>
       </html>
-    `)
+    `
+    newWindow.document.open()
+    newWindow.document.documentElement.innerHTML = htmlContent
     newWindow.document.close()
     newWindow.print()
   }
@@ -79,9 +81,9 @@ const BillReceipt = () => {
         <table>
           <thead><tr><th>#</th><th>Item</th><th>Qty</th><th>Price</th><th>Total</th></tr></thead>
           <tbody>
-            {bill.items.map((item, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td><td>{item.name}</td><td>{item.quantity}</td>
+            {bill.items.map((item) => (
+              <tr key={item.id || `${item.name}-${item.price}`}>
+                <td>{bill.items.indexOf(item) + 1}</td><td>{item.name}</td><td>{item.quantity}</td>
                 <td>₹{item.price.toFixed(2)}</td><td>₹{item.total.toFixed(2)}</td>
               </tr>
             ))}

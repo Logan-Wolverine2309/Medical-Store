@@ -14,7 +14,7 @@ const EditMedicine = () => {
   const categories = ['Tablet', 'Capsule', 'Syrup', 'Injection', 'Ointment', 'Drops', 'Inhaler', 'Powder', 'Other']
 
   useEffect(() => {
-    const medicine = medicines.find(m => m.id === parseInt(id))
+    const medicine = medicines.find(m => m.id === Number.parseInt(id))
     if (medicine) {
       setFormData({ ...medicine })
     } else {
@@ -48,10 +48,10 @@ const EditMedicine = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (validate()) {
-      updateMedicine(parseInt(id), {
+      updateMedicine(Number.parseInt(id), {
         ...formData,
-        price: parseFloat(formData.price),
-        quantity: parseInt(formData.quantity)
+        price: Number.parseFloat(formData.price),
+        quantity: Number.parseInt(formData.quantity)
       })
       toast.success(`${formData.name} updated successfully! ✅`)
       navigate('/medicines')
@@ -64,54 +64,87 @@ const EditMedicine = () => {
       <form onSubmit={handleSubmit} className="form">
         <div className="form-grid">
           <div className="form-group">
-            <label>Medicine Name *</label>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} className={errors.name ? 'error' : ''} />
+            <label>
+              Medicine Name *
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className={errors.name ? 'error' : ''}
+              />
+            </label>
             {errors.name && <span className="error-text">{errors.name}</span>}
           </div>
           <div className="form-group">
-            <label>Brand *</label>
-            <input type="text" name="brand" value={formData.brand} onChange={handleChange} className={errors.brand ? 'error' : ''} />
+            <label>
+              Brand *
+              <input type="text" name="brand" value={formData.brand} onChange={handleChange} className={errors.brand ? 'error' : ''} />
+            </label>
             {errors.brand && <span className="error-text">{errors.brand}</span>}
           </div>
           <div className="form-group">
-            <label>Category *</label>
-            <select name="category" value={formData.category} onChange={handleChange}>
-              {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-            </select>
+            <label>
+              Category *
+              <select name="category" value={formData.category} onChange={handleChange}>
+                {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+              </select>
+            </label>
           </div>
           <div className="form-group">
-            <label>Price (₹) *</label>
-            <input type="number" name="price" value={formData.price} onChange={handleChange} step="0.01" min="0" className={errors.price ? 'error' : ''} />
+            <label>
+              Price (₹) *
+              <input type="number" name="price" value={formData.price} onChange={handleChange} step="0.01" min="0" className={errors.price ? 'error' : ''} />
+            </label>
             {errors.price && <span className="error-text">{errors.price}</span>}
           </div>
           <div className="form-group">
-            <label>Quantity *</label>
-            <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} min="0" className={errors.quantity ? 'error' : ''} />
+            <label>
+              Quantity *
+            <input
+                type="number"
+                name="quantity"
+                value={formData.quantity}
+                onChange={handleChange}
+                min="0"
+                className={errors.quantity ? 'error' : ''}
+              />
+            </label>
             {errors.quantity && <span className="error-text">{errors.quantity}</span>}
           </div>
           <div className="form-group">
-            <label>Batch Number *</label>
-            <input type="text" name="batchNo" value={formData.batchNo} onChange={handleChange} className={errors.batchNo ? 'error' : ''} />
+            <label>
+              Batch Number *
+              <input type="text" name="batchNo" value={formData.batchNo} onChange={handleChange} className={errors.batchNo ? 'error' : ''} />
+            </label>
             {errors.batchNo && <span className="error-text">{errors.batchNo}</span>}
           </div>
           <div className="form-group">
-            <label>Mfg Date *</label>
-            <input type="date" name="mfgDate" value={formData.mfgDate} onChange={handleChange} className={errors.mfgDate ? 'error' : ''} />
+            <label>
+              Mfg Date *
+              <input type="date" name="mfgDate" value={formData.mfgDate} onChange={handleChange} className={errors.mfgDate ? 'error' : ''} />
+            </label>
             {errors.mfgDate && <span className="error-text">{errors.mfgDate}</span>}
           </div>
           <div className="form-group">
-            <label>Exp Date *</label>
-            <input type="date" name="expDate" value={formData.expDate} onChange={handleChange} className={errors.expDate ? 'error' : ''} />
+            <label>
+              Exp Date *
+              <input type="date" name="expDate" value={formData.expDate} onChange={handleChange} className={errors.expDate ? 'error' : ''} />
+            </label>
             {errors.expDate && <span className="error-text">{errors.expDate}</span>}
           </div>
           <div className="form-group">
-            <label>Supplier *</label>
-            <input type="text" name="supplier" value={formData.supplier} onChange={handleChange} className={errors.supplier ? 'error' : ''} />
+            <label>
+              Supplier *
+              <input type="text" name="supplier" value={formData.supplier} onChange={handleChange} className={errors.supplier ? 'error' : ''} />
+            </label>
             {errors.supplier && <span className="error-text">{errors.supplier}</span>}
           </div>
           <div className="form-group full-width">
-            <label>Description</label>
-            <textarea name="description" value={formData.description} onChange={handleChange} rows="3" />
+            <label>
+              Description
+              <textarea name="description" value={formData.description} onChange={handleChange} rows="3" />
+            </label>
           </div>
         </div>
         <div className="form-actions">

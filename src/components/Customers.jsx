@@ -17,7 +17,7 @@ const Customers = () => {
   )
 
   const handleDelete = (id, name) => {
-    if (window.confirm(`Delete customer "${name}"?`)) {
+    if (globalThis.confirm(`Delete customer "${name}"?`)) {
       deleteCustomer(id)
       toast.success(`${name} deleted!`)
     }

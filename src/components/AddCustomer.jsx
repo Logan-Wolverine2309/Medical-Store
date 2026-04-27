@@ -41,23 +41,23 @@ const AddCustomer = () => {
       <form onSubmit={handleSubmit} className="form">
         <div className="form-grid">
           <div className="form-group">
-            <label>Customer Name *</label>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full name" className={errors.name ? 'error' : ''} />
+            <label htmlFor="name">Customer Name *</label>
+            <input id="name" type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Full name" className={errors.name ? 'error' : ''} />
             {errors.name && <span className="error-text">{errors.name}</span>}
           </div>
           <div className="form-group">
-            <label>Phone Number *</label>
-            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="10-digit phone" className={errors.phone ? 'error' : ''} />
+            <label htmlFor="phone">Phone Number *</label>
+            <input id="phone" type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="10-digit phone" className={errors.phone ? 'error' : ''} />
             {errors.phone && <span className="error-text">{errors.phone}</span>}
           </div>
           <div className="form-group">
-            <label>Email</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="email@example.com" className={errors.email ? 'error' : ''} />
+            <label htmlFor="email">Email</label>
+            <input id="email" type="email" name="email" value={formData.email} onChange={handleChange} placeholder="email@example.com" className={errors.email ? 'error' : ''} />
             {errors.email && <span className="error-text">{errors.email}</span>}
           </div>
           <div className="form-group full-width">
-            <label>Address</label>
-            <textarea name="address" value={formData.address} onChange={handleChange} placeholder="Full address" rows="3" />
+            <label htmlFor="address">Address</label>
+            <textarea id="address" name="address" value={formData.address} onChange={handleChange} placeholder="Full address" rows="3" />
           </div>
         </div>
         <div className="form-actions">
