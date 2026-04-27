@@ -2,8 +2,20 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Navbar from './components/Navbar.jsx'
+
+// MUI
+import { ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import Box from '@mui/material/Box'
+
+// Theme
+import theme from './theme'
+
+// Context
 import { StoreProvider } from './context/StoreContext.jsx'
+
+// Components
+import Navbar from './components/Navbar.jsx'
 import Sidebar from './components/Sidebar.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import MedicineList from './components/MedicineList.jsx'
@@ -20,32 +32,49 @@ import Footer from './components/Footer.jsx'
 
 function App() {
   return (
-    <StoreProvider>
-      <div className="app">
-        <Navbar />
-        <div className="main-container">
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+
+      <StoreProvider>
+        {/* Main Layout */}
+        <Box sx={{ display: 'flex' }}>
+
+          {/* Sidebar */}
           <Sidebar />
-          <div className="content">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/medicines" element={<MedicineList />} />
-              <Route path="/add-medicine" element={<AddMedicine />} />
-              <Route path="/edit-medicine/:id" element={<EditMedicine />} />
-              <Route path="/billing" element={<Billing />} />
-              <Route path="/bill-receipt/:id" element={<BillReceipt />} />
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/add-customer" element={<AddCustomer />} />
-              <Route path="/expired" element={<ExpiredMedicines />} />
-              <Route path="/low-stock" element={<LowStock />} />
-              <Route path="/search" element={<SearchMedicine />} />
-              <Route path="/navbar" element={<Navbar />} />
-            </Routes>
-          </div>
-        </div>
-        <Footer />
+
+          {/* Main Content Area */}
+          <Box sx={{ flexGrow: 1 }}>
+
+            {/* Top Navbar */}
+            <Navbar />
+
+            {/* Page Content */}
+            <Box sx={{ p: 3 }}>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/medicines" element={<MedicineList />} />
+                <Route path="/add-medicine" element={<AddMedicine />} />
+                <Route path="/edit-medicine/:id" element={<EditMedicine />} />
+                <Route path="/billing" element={<Billing />} />
+                <Route path="/bill-receipt/:id" element={<BillReceipt />} />
+                <Route path="/customers" element={<Customers />} />
+                <Route path="/add-customer" element={<AddCustomer />} />
+                <Route path="/expired" element={<ExpiredMedicines />} />
+                <Route path="/low-stock" element={<LowStock />} />
+                <Route path="/search" element={<SearchMedicine />} />
+              </Routes>
+            </Box>
+
+            {/* Footer */}
+            <Footer />
+
+          </Box>
+        </Box>
+
+        {/* Toast */}
         <ToastContainer position="top-right" autoClose={3000} />
-      </div>
-    </StoreProvider>
+      </StoreProvider>
+    </ThemeProvider>
   )
 }
 

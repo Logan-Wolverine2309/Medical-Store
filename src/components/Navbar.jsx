@@ -24,7 +24,7 @@ const Navbar = () => {
       <div className="navbar-brand">
         <Link to="/">
           <FaCapsules className="brand-icon" />
-          <span className="brand-text">MedStore Pro</span>
+          <span className="brand-text"> MedStore Pro</span>
         </Link>
       </div>
 

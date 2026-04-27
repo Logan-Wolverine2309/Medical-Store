@@ -1,49 +1,101 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+
+// MUI
 import {
-  FaHome, FaPills, FaPlusCircle, FaShoppingCart,
-  FaUsers, FaExclamationTriangle, FaBoxOpen,
-  FaBars, FaTimes, FaSearch
-} from 'react-icons/fa'
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  IconButton,
+  Box,
+  Toolbar
+} from '@mui/material'
+
+// Icons
+import {
+  Menu,
+  ChevronLeft,
+  Home,
+  LocalPharmacy,
+  AddCircle,
+  ShoppingCart,
+  People,
+  Warning,
+  Inventory2,
+  Search
+} from '@mui/icons-material'
+
+const drawerWidth = 220
+const collapsedWidth = 70
 
 const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(false)
 
   const menuItems = [
-    { id: 'dashboard', path: '/', icon: <FaHome />, label: 'Dashboard' },
-    { id: 'medicines', path: '/medicines', icon: <FaPills />, label: 'Medicines' },
-    { id: 'add-medicine', path: '/add-medicine', icon: <FaPlusCircle />, label: 'Add Medicine' },
-    { id: 'billing', path: '/billing', icon: <FaShoppingCart />, label: 'Billing' },
-    { id: 'customers', path: '/customers', icon: <FaUsers />, label: 'Customers' },
-    { id: 'search', path: '/search', icon: <FaSearch />, label: 'Search' },
-    { id: 'expired', path: '/expired', icon: <FaExclamationTriangle />, label: 'Expired' },
-    { id: 'low-stock', path: '/low-stock', icon: <FaBoxOpen />, label: 'Low Stock' },
+    { path: '/', icon: <Home />, label: 'Dashboard' },
+    { path: '/medicines', icon: <LocalPharmacy />, label: 'Medicines' },
+    { path: '/add-medicine', icon: <AddCircle />, label: 'Add Medicine' },
+    { path: '/billing', icon: <ShoppingCart />, label: 'Billing' },
+    { path: '/customers', icon: <People />, label: 'Customers' },
+    // { path: '/search', icon: <Search />, label: 'Search' },
+    { path: '/expired', icon: <Warning />, label: 'Expired' },
+    { path: '/low-stock', icon: <Inventory2 />, label: 'Low Stock' }
   ]
 
   return (
-    <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
-      <button
-        className="sidebar-toggle"
-        onClick={() => setIsCollapsed(!isCollapsed)}
+    <Drawer
+      variant="permanent"
+      sx={{
+        width: collapsed ? collapsedWidth : drawerWidth,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: collapsed ? collapsedWidth : drawerWidth,
+          boxSizing: 'border-box',
+          transition: '0.3s'
+        }
+      }}
+    >
+      {/* Toggle Button */}
+      <Toolbar
+        sx={{
+          display: 'flex',
+          justifyContent: collapsed ? 'center' : 'flex-end'
+        }}
       >
-        {isCollapsed ? <FaBars /> : <FaTimes />}
-      </button>
+        <IconButton onClick={() => setCollapsed(!collapsed)}>
+          {collapsed ? <Menu /> : <ChevronLeft />}
+        </IconButton>
+      </Toolbar>
 
-      <ul className="sidebar-menu">
-        {menuItems.map((item) => (
-          <li key={item.id}>
-            <NavLink
+      {/* Menu */}
+      <Box sx={{ overflow: 'auto' }}>
+        <List>
+          {menuItems.map((item) => (
+            <ListItemButton
+              key={item.path}
+              component={NavLink}
               to={item.path}
-              className={({ isActive }) => isActive ? 'active' : ''}
-              end={item.path === '/'}
+              sx={{
+                '&.active': {
+                  bgcolor: 'primary.light',
+                  color: 'primary.contrastText'
+                }
+              }}
             >
-              <span className="menu-icon">{item.icon}</span>
-              {!isCollapsed && <span className="menu-label">{item.label}</span>}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
-    </aside>
+              <ListItemIcon sx={{ minWidth: 40 }}>
+                {item.icon}
+              </ListItemIcon>
+
+              {!collapsed && (
+                <ListItemText primary={item.label} />
+              )}
+            </ListItemButton>
+          ))}
+        </List>
+      </Box>
+    </Drawer>
   )
 }
 

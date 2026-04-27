@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { sampleMedicines, sampleCustomers, sampleBills } from '../data/sampleData'
+import { sampleBills, sampleCustomers, sampleMedicines } from '../components/data/sampleData'
+
 
 const StoreContext = createContext()
 

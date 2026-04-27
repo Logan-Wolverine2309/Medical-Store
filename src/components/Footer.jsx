@@ -1,16 +1,39 @@
 import React from 'react'
-import { FaHeart, FaCapsules } from 'react-icons/fa'
+
+// MUI
+import { Box, Typography } from '@mui/material'
+import { Favorite, LocalPharmacy } from '@mui/icons-material'
 
 const Footer = () => {
   return (
-    <footer className="footer">
-      <div className="footer-content">
-        <p>
-          <FaCapsules /> MedStore Pro &copy; {new Date().getFullYear()} |
-          Made with <FaHeart className="heart" /> for Better Healthcare Management
-        </p>
-      </div>
-    </footer>
+    <Box
+      component="footer"
+      sx={{
+        mt: 4,
+        py: 2,
+        px: 2,
+        textAlign: 'center',
+        borderTop: '1px solid',
+        borderColor: 'divider',
+        bgcolor: 'background.paper'
+      }}
+    >
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        gap={1}
+        flexWrap="wrap"
+      >
+        <LocalPharmacy fontSize="small" />
+        MedStore Pro © {new Date().getFullYear()} |
+        Made with
+        <Favorite sx={{ color: 'red', fontSize: 16 }} />
+        for Better Healthcare Management
+      </Typography>
+    </Box>
   )
 }
 
