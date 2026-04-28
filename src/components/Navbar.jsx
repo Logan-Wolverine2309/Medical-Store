@@ -30,18 +30,19 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* CENTER TITLE (NEW) */}
-      <div
+      {/* ✅ CENTER TITLE FIXED */}
+      {/* <div
         style={{
           position: 'absolute',
           left: '50%',
           transform: 'translateX(-50%)',
           fontWeight: 'bold',
-          fontSize: '18px',
-          pointerEvents: 'none' // prevents blocking clicks
+          fontSize: '20px',
+          pointerEvents: 'none'
         }}
       >
-      </div>
+        MedStore Pro
+      </div> */}
 
       {/* SEARCH (UNCHANGED) */}
       <div className="navbar-search">

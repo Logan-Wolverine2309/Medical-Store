@@ -1,0 +1,6 @@
+{
+  "appId": "com.medstore.app",
+  "appName": " Medstore Pro",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
