@@ -1,75 +1,108 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 import {
-  Box, Paper, Tabs, Tab, TextField,
+  Box, Grid, TextField,
   Button, Typography
 } from '@mui/material'
 
 const Register = () => {
   const { register } = useAuth()
-  const navigate = useNavigate()
 
-  const [role, setRole] = useState('customer')
   const [form, setForm] = useState({
+    name: '',
     username: '',
-    password: ''
+    email: '',
+    phone: '',
+    password: '',
+    address: '',
+    gender: ''
   })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const success = await register({ ...form, role })
+    const success = await register({ ...form, role: 'customer' })
 
     if (success) {
-      alert('Registered successfully!')
-      navigate('/login')
+      alert('Account Created! Please login')
     } else {
-      alert('Registration failed')
+      alert('Error')
     }
   }
 
   return (
-    <Box sx={{
-      height:'100vh',
-      display:'flex',
-      justifyContent:'center',
-      alignItems:'center'
-    }}>
-      <Paper sx={{ p:4, width:350 }}>
-        <Typography variant="h5" align="center">
-          📝 Register
-        </Typography>
+    <Grid container sx={{ height: '100vh' }}>
 
-        <Tabs value={role} onChange={(e,v)=>setRole(v)} centered>
-          <Tab label="Admin" value="admin" />
-          <Tab label="Staff" value="staff" />
-          <Tab label="Customer" value="customer" />
-        </Tabs>
+      {/* LEFT SIDE (Branding) */}
+      <Grid item xs={6}
+        sx={{
+          background: 'linear-gradient(135deg,#1976d2,#42a5f5)',
+          color: '#fff',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <Typography variant="h3">💊 MedStore</Typography>
+        <Typography>Manage medicines easily</Typography>
+      </Grid>
 
-        <form onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            label="Username"
-            margin="normal"
-            onChange={(e)=>setForm({...form, username:e.target.value})}
-          />
+      {/* RIGHT SIDE (FORM) */}
+      <Grid item xs={6}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        <Box sx={{ width: 350 }}>
 
-          <TextField
-            fullWidth
-            label="Password"
-            type="password"
-            margin="normal"
-            onChange={(e)=>setForm({...form, password:e.target.value})}
-          />
+          <Typography variant="h6" mb={2}>
+            Create Customer Account
+          </Typography>
 
-          <Button fullWidth type="submit" variant="contained" sx={{ mt:2 }}>
-            Register
-          </Button>
-        </form>
-      </Paper>
-    </Box>
+          <form onSubmit={handleSubmit}>
+
+            <TextField fullWidth label="Full Name" margin="normal"
+              onChange={(e)=>setForm({...form, name:e.target.value})}
+            />
+
+            <TextField fullWidth label="Username" margin="normal"
+              onChange={(e)=>setForm({...form, username:e.target.value})}
+            />
+
+            <TextField fullWidth label="Email" margin="normal"
+              onChange={(e)=>setForm({...form, email:e.target.value})}
+            />
+
+            <TextField fullWidth label="Phone" margin="normal"
+              onChange={(e)=>setForm({...form, phone:e.target.value})}
+            />
+
+            <TextField fullWidth label="Password" type="password" margin="normal"
+              onChange={(e)=>setForm({...form, password:e.target.value})}
+            />
+
+            <TextField fullWidth label="Address" margin="normal"
+              onChange={(e)=>setForm({...form, address:e.target.value})}
+            />
+
+            <TextField fullWidth label="Gender" margin="normal"
+              onChange={(e)=>setForm({...form, gender:e.target.value})}
+            />
+
+            <Button fullWidth type="submit" variant="contained" sx={{ mt:2 }}>
+              Create Account
+            </Button>
+
+          </form>
+
+        </Box>
+      </Grid>
+
+    </Grid>
   )
 }
 
