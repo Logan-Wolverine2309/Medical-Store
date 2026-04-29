@@ -1,9 +1,9 @@
-// Fixed build.gradle - Added signingConfigs and verified structure
 apply plugin: 'com.android.application'
 
 android {
     namespace = "com.medstore.app"
     compileSdk = rootProject.ext.compileSdkVersion
+
     defaultConfig {
         applicationId "com.medstore.app"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -19,17 +19,17 @@ android {
     }
 
     signingConfigs {
-        release {
-            storeFile file('release-key.jks')
-            storePassword 'password'
-            keyAlias 'release-key'
-            keyPassword 'password'
-        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
+        }
+        release {
+            storeFile file('release-key.jks')
+            storePassword 'password'
+            keyAlias 'release-key'
+            keyPassword 'password'
         }
     }
 
@@ -42,7 +42,7 @@ android {
         }
         debug {
             minifyEnabled false
-            shrinkResources true
+            shrinkResources false
             signingConfig signingConfigs.debug
         }
     }

@@ -7,11 +7,11 @@ import {
   Button, Typography
 } from '@mui/material'
 
-const Login = () => {
-  const { login } = useAuth()
+const Register = () => {
+  const { register } = useAuth()
   const navigate = useNavigate()
 
-  const [role, setRole] = useState('admin') // UI only
+  const [role, setRole] = useState('customer')
   const [form, setForm] = useState({
     username: '',
     password: ''
@@ -20,25 +20,27 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const success = await login(form)
+    const success = await register({ ...form, role })
 
     if (success) {
-      navigate('/dashboard', { replace: true })
+      alert('Registered successfully!')
+      navigate('/login')
     } else {
-      alert('Invalid Credentials')
+      alert('Registration failed')
     }
   }
 
   return (
     <Box sx={{
-      height: '100vh',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      background: 'linear-gradient(135deg,#1976d2,#42a5f5)'
+      height:'100vh',
+      display:'flex',
+      justifyContent:'center',
+      alignItems:'center'
     }}>
-      <Paper sx={{ p: 4, width: 350 }}>
-        <Typography variant="h5" align="center">💊 Login</Typography>
+      <Paper sx={{ p:4, width:350 }}>
+        <Typography variant="h5" align="center">
+          📝 Register
+        </Typography>
 
         <Tabs value={role} onChange={(e,v)=>setRole(v)} centered>
           <Tab label="Admin" value="admin" />
@@ -47,33 +49,28 @@ const Login = () => {
         </Tabs>
 
         <form onSubmit={handleSubmit}>
-          <TextField fullWidth label="Username" margin="normal"
+          <TextField
+            fullWidth
+            label="Username"
+            margin="normal"
             onChange={(e)=>setForm({...form, username:e.target.value})}
           />
 
-          <TextField fullWidth label="Password" type="password" margin="normal"
+          <TextField
+            fullWidth
+            label="Password"
+            type="password"
+            margin="normal"
             onChange={(e)=>setForm({...form, password:e.target.value})}
           />
 
-          <Typography align="center" fontSize={12}>
-            Login as: {role}
-          </Typography>
-
           <Button fullWidth type="submit" variant="contained" sx={{ mt:2 }}>
-            Login
+            Register
           </Button>
-
-          <Button
-  fullWidth
-  sx={{ mt: 1 }}
-  onClick={() => navigate('/register')}
->
-  Create Account
-</Button>
         </form>
       </Paper>
     </Box>
   )
 }
 
-export default Login
+export default Register

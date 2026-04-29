@@ -1,14 +1,31 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect, useRef } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useStore } from '../context/StoreContext.jsx'
+import { useAuth } from '../context/AuthContext'
+
 import {
   FaCapsules, FaBell, FaUser, FaSearch,
   FaExclamationTriangle, FaInfoCircle, FaTimesCircle
 } from 'react-icons/fa'
 
 const Navbar = () => {
-  const { notifications } = useStore()
+  const { notifications = [] } = useStore()
+  const { user, logout } = useAuth()
+  const navigate = useNavigate()
+
   const [showNotifications, setShowNotifications] = useState(false)
+  const dropdownRef = useRef()
+
+  // 🔒 Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowNotifications(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const getNotificationIcon = (type) => {
     switch (type) {
@@ -19,32 +36,24 @@ const Navbar = () => {
     }
   }
 
+  // ✅ LOGOUT
+  const handleLogout = () => {
+    logout()
+    navigate('/login', { replace: true })
+  }
+
   return (
     <nav className="navbar" style={{ position: 'relative' }}>
       
-      {/* LEFT SIDE (UNCHANGED) */}
+      {/* LEFT */}
       <div className="navbar-brand">
-        <Link to="/">
+        <Link to="/dashboard">
           <FaCapsules className="brand-icon" />
           <span className="brand-text">MedStore Pro</span>
         </Link>
       </div>
 
-      {/* ✅ CENTER TITLE FIXED */}
-      {/* <div
-        style={{
-          position: 'absolute',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          fontWeight: 'bold',
-          fontSize: '20px',
-          pointerEvents: 'none'
-        }}
-      >
-        MedStore Pro
-      </div> */}
-
-      {/* SEARCH (UNCHANGED) */}
+      {/* SEARCH */}
       <div className="navbar-search">
         <Link to="/search" className="search-link">
           <FaSearch />
@@ -52,22 +61,27 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* RIGHT SIDE (UNCHANGED) */}
+      {/* RIGHT */}
       <div className="navbar-actions">
-        <div className="notification-wrapper">
+
+        {/* 🔔 Notifications */}
+        <div className="notification-wrapper" ref={dropdownRef}>
           <button
             className="nav-btn notification-btn"
-            onClick={() => setShowNotifications(!showNotifications)}
+            onClick={() => setShowNotifications(prev => !prev)}
           >
             <FaBell />
             {notifications.length > 0 && (
-              <span className="notification-badge">{notifications.length}</span>
+              <span className="notification-badge">
+                {notifications.length}
+              </span>
             )}
           </button>
 
           {showNotifications && (
             <div className="notification-dropdown">
               <h4>Notifications ({notifications.length})</h4>
+
               {notifications.length === 0 ? (
                 <p className="no-notifications">No notifications</p>
               ) : (
@@ -84,10 +98,33 @@ const Navbar = () => {
           )}
         </div>
 
+        {/* 👤 USER */}
         <div className="user-info">
           <FaUser />
-          <span>Admin</span>
+          <span>
+            {user ? `${user.name || 'User'} (${user.role})` : 'Guest'}
+          </span>
         </div>
+
+        {/* 🚪 LOGOUT */}
+        {user && (
+          <button
+            className="nav-btn logout-btn"
+            onClick={handleLogout}
+            style={{
+              marginLeft: '10px',
+              background: '#d32f2f',
+              color: '#fff',
+              padding: '6px 12px',
+              borderRadius: '6px',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+          >
+            Logout
+          </button>
+        )}
+
       </div>
     </nav>
   )

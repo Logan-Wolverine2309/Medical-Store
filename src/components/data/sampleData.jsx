@@ -155,7 +155,7 @@ export const sampleCustomers = [
     email: "amit@email.com",
     address: "789 Lake Road, Ahmedabad",
     totalPurchases: 3200
-  }
+  },
 ]
 
 export const sampleBills = [
